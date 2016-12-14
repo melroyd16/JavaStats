@@ -1,0 +1,20 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+   
+}
+#noOfPackages{
+    padding-left: 15px;
+}
+#noOfClasses{
+    padding-left: 15px;
+}
+#noOfInterfaces{
+    padding-left: 15px;
+}
+#linesOfCode{
+    padding-left: 15px;
+    text-align: center;
+}
