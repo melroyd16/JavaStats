@@ -38,7 +38,7 @@ public class ClassDetailsController implements Initializable {
     @FXML private Label className;
     
     @FXML
-    private TableView functionTable;
+    private TableView<FunctionInfo> functionTable;
     @FXML
     private TableColumn<FunctionInfo, String> functionName;
     @FXML
@@ -52,11 +52,9 @@ public class ClassDetailsController implements Initializable {
     
     @FXML
     private void navigateBack(ActionEvent event) throws IOException {
-        //Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         MainApp.mainStage.hide();
         MainApp.sceneStack.pop();
-        //MainApp.currentscene = MainApp.appSceneList.get(0);
-        MainApp.currentscene = (Scene)MainApp.sceneStack.peek();
+        MainApp.currentscene = MainApp.sceneStack.peek();
         MainApp.mainStage.setScene(MainApp.currentscene);
         MainApp.mainStage.show();
     }
@@ -65,10 +63,10 @@ public class ClassDetailsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         className.setText(Folder.navigationClass.getClassName());
         
-        functionName.setCellValueFactory(new PropertyValueFactory<FunctionInfo, String>("functionName"));
-        visibility.setCellValueFactory(new PropertyValueFactory<FunctionInfo, String>("accessModifier"));
-        linesOfCode.setCellValueFactory(new PropertyValueFactory<FunctionInfo, Integer>("linesOfCode"));
-        returnType.setCellValueFactory(new PropertyValueFactory<FunctionInfo, String>("returnType"));
+        functionName.setCellValueFactory(new PropertyValueFactory<>("functionName"));
+        visibility.setCellValueFactory(new PropertyValueFactory<>("accessModifier"));
+        linesOfCode.setCellValueFactory(new PropertyValueFactory<>("linesOfCode"));
+        returnType.setCellValueFactory(new PropertyValueFactory<>("returnType"));
         functionTable.setItems(functions);
         functionTable.setFixedCellSize(25);
         functionTable.prefHeightProperty().bind(functionTable.fixedCellSizeProperty().multiply(Bindings.size(functionTable.getItems()).add(1.3)));

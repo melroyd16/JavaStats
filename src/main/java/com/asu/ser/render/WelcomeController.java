@@ -27,15 +27,8 @@ import javax.swing.JPanel;
 
 public class WelcomeController implements Initializable {
 
-    private Scene previousScene;
-    
-    public WelcomeController(){
-        this.previousScene = MainApp.currentscene;
-    }
-
     @FXML
     private Label label;
-
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
@@ -60,7 +53,7 @@ public class WelcomeController implements Initializable {
         }
     }
 
-    void beginAnalysis(File file, ActionEvent event) throws IOException {
+    private void beginAnalysis(File file, ActionEvent event) throws IOException {
         Summary.linesOfcode = 0;
         Summary.noOfClasses = 0;
         Summary.noOfInterfaces = 0;
@@ -70,9 +63,7 @@ public class WelcomeController implements Initializable {
         List<PackageInfo> packageList = f.scanFolder(folderPath);
         Parent summaryParent = FXMLLoader.load(getClass().getResource("/fxml/ProjectSummary.fxml"));
         Scene summary_scene = new Scene(summaryParent);
-        //MainApp.appSceneList.add(summary_scene);
         MainApp.sceneStack.push(summary_scene);
-        //Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         MainApp.mainStage.hide();
         MainApp.currentscene = summary_scene;
         MainApp.mainStage.setScene(summary_scene);

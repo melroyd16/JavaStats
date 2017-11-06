@@ -23,8 +23,8 @@ public class ClassInfo{
 
     public ClassInfo(String className){
         this.className = className;
-        this.functionList = new ArrayList<FunctionInfo>();
-        this.implementsInterface = new ArrayList<String>();
+        this.functionList = new ArrayList<>();
+        this.implementsInterface = new ArrayList<>();
     }
     public String getClassName() {
         return className;

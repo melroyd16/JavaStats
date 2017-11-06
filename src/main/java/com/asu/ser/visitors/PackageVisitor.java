@@ -16,10 +16,9 @@ import java.util.List;
  *
  * @author melroy
  */
-public class PackageVisitor extends VoidVisitorAdapter{
+public class PackageVisitor extends VoidVisitorAdapter<List<PackageInfo>> {
     @Override
-        public void visit(PackageDeclaration n, Object arg) {
-            
+        public void visit(PackageDeclaration n, List<PackageInfo> arg) {
             List<PackageInfo> packageList = Folder.packageList;
 
             String packageName = (n.getName()).toString();

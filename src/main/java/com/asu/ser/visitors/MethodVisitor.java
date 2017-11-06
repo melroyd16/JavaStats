@@ -5,7 +5,7 @@
  */
 package com.asu.ser.visitors;
 
-import com.asu.ser.dto.Arguement;
+import com.asu.ser.dto.Argument;
 import com.asu.ser.dto.FunctionInfo;
 import com.asu.ser.dto.ModifierValue;
 import com.asu.ser.scan.Folder;
@@ -19,15 +19,15 @@ import java.util.List;
  *
  * @author melroy
  */
-public class MethodVisitor extends VoidVisitorAdapter{
+public class MethodVisitor extends VoidVisitorAdapter<Void> {
     @Override
-        public void visit(MethodDeclaration n, Object arg) {
+        public void visit(MethodDeclaration n, Void arg) {
             List<Parameter> parameterList = n.getParameters();
-            List<Arguement> currentArguementList = new ArrayList<Arguement>();
+            List<Argument> currentArgumentList = new ArrayList<Argument>();
             for(Parameter p: parameterList){
-                currentArguementList.add(new Arguement(p.getType().toString(), p.getName()));
+                currentArgumentList.add(new Argument(p.getType().asString(), p.getNameAsString()));
             }
-            FunctionInfo currentFunction = new FunctionInfo(n.getName());
+            FunctionInfo currentFunction = new FunctionInfo(n.getNameAsString());
             currentFunction.setReturnType(n.getType().toString());
             ModifierValue mv = new ModifierValue(n.getModifiers());
             currentFunction.setAccessModifier(mv.getAccessModifier());
@@ -38,7 +38,8 @@ public class MethodVisitor extends VoidVisitorAdapter{
                 currentFunctionList = Folder.currentInterface.getFunctionList();   
             } else {
                 currentFunctionList = Folder.currentClass.getFunctionList();
-                currentFunction.setLinesOfCode(n.getEnd().line - n.getBegin().line);
+                int noOfLines = n.getRange().map(range -> range.end.line - range.begin.line).orElse(0);
+                currentFunction.setLinesOfCode(noOfLines);
             }
             currentFunctionList.add(currentFunction);
             super.visit(n, arg);

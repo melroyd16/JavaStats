@@ -21,8 +21,8 @@ public class InterfaceInfo {
 
     public InterfaceInfo(String interfaceName){
         this.interfaceName = interfaceName;
-        this.inheritsFrom = new ArrayList<String>();
-        this.functionList = new ArrayList<FunctionInfo>();
+        this.inheritsFrom = new ArrayList<>();
+        this.functionList = new ArrayList<>();
     }
     
     public String getInterfaceName() {

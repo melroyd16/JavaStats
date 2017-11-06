@@ -17,12 +17,12 @@ public class FunctionInfo {
     private String accessModifier;
     private String returnType;
     private int linesOfCode;
-    private List<Arguement> arguementList;
+    private List<Argument> argumentList;
     private List<String> nonAccessModifiers;
 
     public FunctionInfo(String functionName){
         this.functionName = functionName;
-        this.arguementList = new ArrayList<Arguement>();
+        this.argumentList = new ArrayList<>();
     }
     
     public String getFunctionName() {
@@ -57,12 +57,12 @@ public class FunctionInfo {
         this.linesOfCode = linesOfCode;
     }
 
-    public List<Arguement> getArguementList() {
-        return arguementList;
+    public List<Argument> getArgumentList() {
+        return argumentList;
     }
 
-    public void setArguementList(List<Arguement> arguementList) {
-        this.arguementList = arguementList;
+    public void setArgumentList(List<Argument> argumentList) {
+        this.argumentList = argumentList;
     }
 
     public List<String> getNonAccessModifiers() {

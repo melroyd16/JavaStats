@@ -9,11 +9,11 @@ package com.asu.ser.dto;
  *
  * @author melroy
  */
-public class Arguement {
+public class Argument {
     private String dataType;
     private String variableName;
 
-    public Arguement(String dataType, String variableName){
+    public Argument(String dataType, String variableName){
         this.dataType = dataType;
         this.variableName = variableName;
     }
