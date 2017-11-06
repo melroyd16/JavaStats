@@ -1,23 +1,16 @@
 package com.asu.ser;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class MainApp extends Application {
-    
-    
     public static Stage mainStage;
     public static Scene currentscene;
-    public static Stack sceneStack = new Stack();
-    //public static List<Scene> appSceneList = new ArrayList<Scene>();
+    public static Stack<Scene> sceneStack = new Stack<>();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -25,7 +18,6 @@ public class MainApp extends Application {
         
         Scene scene = new Scene(root);
         currentscene = scene;
-        //appSceneList.add(currentscene);
         sceneStack.push(currentscene);
         mainStage = stage;
         scene.getStylesheets().add("/styles/Styles.css");

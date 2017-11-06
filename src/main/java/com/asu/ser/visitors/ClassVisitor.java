@@ -20,18 +20,18 @@ import java.util.List;
  *
  * @author melroy
  */
-public class ClassVisitor extends VoidVisitorAdapter{
+public class ClassVisitor extends VoidVisitorAdapter<Void> {
     @Override
-        public void visit(ClassOrInterfaceDeclaration n, Object arg) {
-            int noOfLines = n.getEnd().line - n.getBegin().line;
+        public void visit(ClassOrInterfaceDeclaration n, Void arg) {
+            int noOfLines = n.getRange().map(range -> range.end.line - range.begin.line).orElse(0);
             ModifierValue mv = new ModifierValue(n.getModifiers());
             if (n.isInterface()) {
                 Summary.noOfInterfaces += 1;
-                InterfaceInfo currentInterface = new InterfaceInfo(n.getName());
+                InterfaceInfo currentInterface = new InterfaceInfo(n.getNameAsString());
                 Folder.isInterface = true;
                 currentInterface.setLinesOfCode(noOfLines);
                 currentInterface.setAccessModifier(mv.getAccessModifier());
-                List<ClassOrInterfaceType> ciList = n.getExtends();
+                List<ClassOrInterfaceType> ciList = n.getExtendedTypes();
                 List<String> extendsList = new ArrayList<String>();
                 for(ClassOrInterfaceType ci : ciList){
                     extendsList.add(ci.toString());
@@ -44,14 +44,14 @@ public class ClassVisitor extends VoidVisitorAdapter{
                 Folder.currentPackage.setNoOfInterfaces(Folder.currentPackage.getNoOfInterfaces() + 1);
             } else {
                 Summary.noOfClasses += 1;
-                ClassInfo currentClass = new ClassInfo(n.getName());
+                ClassInfo currentClass = new ClassInfo(n.getNameAsString());
                 Folder.isInterface = false;
                 currentClass.setLinesOfCode(noOfLines);
                 currentClass.setAccessModifier(mv.getAccessModifier());
                 currentClass.setNonAccessModifiers(mv.getNonAccessModifiers());
                 List<String> implementsList = new ArrayList<String>();
-                List<ClassOrInterfaceType> ciList = n.getImplements();
-                String inherits = (n.getExtends().size()>0)?n.getExtends().get(0).toString():null;
+                List<ClassOrInterfaceType> ciList = n.getImplementedTypes();
+                String inherits = (n.getExtendedTypes().size()>0)?n.getExtendedTypes().get(0).toString():null;
                 for(ClassOrInterfaceType ci : ciList){
                     implementsList.add(ci.toString());
                 }

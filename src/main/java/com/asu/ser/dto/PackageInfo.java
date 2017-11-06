@@ -22,8 +22,8 @@ public class PackageInfo{
     
     public PackageInfo(String packageName){
         this.packageName = packageName;
-        this.classList = new ArrayList<ClassInfo>();
-        this.interfaceList = new ArrayList<InterfaceInfo>();
+        this.classList = new ArrayList<>();
+        this.interfaceList = new ArrayList<>();
         this.noOfClasses = 0;
         this.noOfInterfaces = 0;
     }

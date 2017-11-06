@@ -35,7 +35,7 @@ public class Folder {
     public static boolean isInterface = false;
 
     public List<PackageInfo> scanFolder(String folderPath) throws IOException {
-        packageList = packageList = new ArrayList<>();
+        packageList = new ArrayList<>();
         currentPackage = null;
         currentClass = null;
         navigationPackage = null;

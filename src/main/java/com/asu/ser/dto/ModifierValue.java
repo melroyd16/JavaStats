@@ -5,9 +5,14 @@
  */
 package com.asu.ser.dto;
 
-import com.github.javaparser.ast.body.ModifierSet;
+import com.github.javaparser.ast.Modifier;
+import com.github.javaparser.ast.nodeTypes.NodeWithModifiers;
+
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
+
+import static com.github.javaparser.ast.Modifier.*;
 
 /**
  *
@@ -15,21 +20,21 @@ import java.util.List;
  */
 public class ModifierValue {
 
-    private int modifierNumber;
+    private final EnumSet<Modifier> modifiers;
     private String accessModifier;
     private List<String> nonAccessModifier;
 
-    public ModifierValue(int modifierNumber) {
-        this.modifierNumber = modifierNumber;
-        this.nonAccessModifier = new ArrayList<String>();
+    public ModifierValue(EnumSet<Modifier> modifiers) {
+        this.modifiers = modifiers;
+        this.nonAccessModifier = new ArrayList<>();
     }
 
     public String getAccessModifier() {
-        if (ModifierSet.isPrivate(this.modifierNumber)) {
+        if (modifiers.contains(PRIVATE)) {
             return("private ");
-        }else if (ModifierSet.isProtected(this.modifierNumber)) {
+        }else if (modifiers.contains(PROTECTED)) {
             return("protected ");
-        }else if (ModifierSet.isPublic(this.modifierNumber)) {
+        }else if (modifiers.contains(PUBLIC)) {
             return("public ");
         } else {
             return("None / Default");
@@ -49,28 +54,28 @@ public class ModifierValue {
     }
 
     public List<String> getNonAccessModifiers() {
-        if (ModifierSet.isAbstract(this.modifierNumber)) {
+        if (modifiers.contains(ABSTRACT)) {
             this.getNonAccessModifier().add("Abstract");
         }
-        if (ModifierSet.isStatic(this.modifierNumber)) {
+        if (modifiers.contains(STATIC)) {
             this.getNonAccessModifier().add("Static");
         }
-        if (ModifierSet.isFinal(this.modifierNumber)) {
+        if (modifiers.contains(FINAL)) {
             this.getNonAccessModifier().add("Final");
         }
-        if (ModifierSet.isNative(this.modifierNumber)) {
+        if (modifiers.contains(NATIVE)) {
             this.getNonAccessModifier().add("Native");
         }
-        if (ModifierSet.isStrictfp(this.modifierNumber)) {
+        if (modifiers.contains(STRICTFP)) {
             this.getNonAccessModifier().add("StrictFP");
         }
-        if (ModifierSet.isSynchronized(this.modifierNumber)) {
+        if (modifiers.contains(SYNCHRONIZED)) {
             this.getNonAccessModifier().add("Synchronized");
         }
-        if (ModifierSet.isTransient(this.modifierNumber)) {
+        if (modifiers.contains(TRANSIENT)) {
             this.getNonAccessModifier().add("Transient");
         }
-        if (ModifierSet.isVolatile(this.modifierNumber)) {
+        if (modifiers.contains(VOLATILE)) {
             this.getNonAccessModifier().add("Volatile");
         }
         return this.getNonAccessModifier();

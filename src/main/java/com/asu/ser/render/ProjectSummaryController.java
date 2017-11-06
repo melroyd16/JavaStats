@@ -55,7 +55,7 @@ public class ProjectSummaryController implements Initializable {
     private Label linesOfCode;
 
     @FXML
-    private TableView table;
+    private TableView<PackageInfo> table;
     @FXML
     private TableColumn<PackageInfo, String> packageName;
     @FXML
@@ -69,11 +69,9 @@ public class ProjectSummaryController implements Initializable {
 
     @FXML
     private void navigateBack(ActionEvent event) throws IOException {
-        //Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         MainApp.mainStage.hide();
         MainApp.sceneStack.pop();
-        //MainApp.currentscene = MainApp.appSceneList.get(0);
-        MainApp.currentscene = (Scene)MainApp.sceneStack.peek();
+        MainApp.currentscene = MainApp.sceneStack.peek();
         MainApp.mainStage.setScene(MainApp.currentscene);
         MainApp.mainStage.show();
     }
@@ -85,13 +83,11 @@ public class ProjectSummaryController implements Initializable {
         noOfInterfaces.setText(Summary.noOfInterfaces + "");
         linesOfCode.setText(Summary.linesOfcode + "");
 
-        packageName.setCellValueFactory(new PropertyValueFactory<PackageInfo, String>("packageName"));
-        tNoOfClasses.setCellValueFactory(new PropertyValueFactory<PackageInfo, Integer>("noOfClasses"));
-        tNoOfInterfaces.setCellValueFactory(new PropertyValueFactory<PackageInfo, Integer>("noOfInterfaces"));
-        tLinesOfCode.setCellValueFactory(new PropertyValueFactory<PackageInfo, Integer>("linesOfCode"));
+        packageName.setCellValueFactory(new PropertyValueFactory<>("packageName"));
+        tNoOfClasses.setCellValueFactory(new PropertyValueFactory<>("noOfClasses"));
+        tNoOfInterfaces.setCellValueFactory(new PropertyValueFactory<>("noOfInterfaces"));
+        tLinesOfCode.setCellValueFactory(new PropertyValueFactory<>("linesOfCode"));
         table.setItems(packages);
-//        table.setFixedCellSize(25);
-//        table.prefHeightProperty().bind(table.fixedCellSizeProperty().multiply(Bindings.size(table.getItems()).add(1.25)));
         table.setRowFactory(tv -> {
             TableRow<PackageInfo> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -117,7 +113,6 @@ public class ProjectSummaryController implements Initializable {
         }
         Parent summaryParent = FXMLLoader.load(getClass().getResource("/fxml/PackageDetails.fxml"));
         Scene packageDetailsScene = new Scene(summaryParent);
-        //MainApp.appSceneList.add(packageDetailsScene);
         MainApp.sceneStack.push(packageDetailsScene);
         MainApp.mainStage.hide();
         MainApp.currentscene = packageDetailsScene;
